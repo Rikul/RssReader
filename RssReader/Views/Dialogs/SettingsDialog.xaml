@@ -1,0 +1,212 @@
+<!-- Views/Dialogs/SettingsDialog.xaml -->
+<Window x:Class="RssReader.Views.Dialogs.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RssReader.Views.Dialogs"
+        mc:Ignorable="d"
+        Title="Settings" 
+        Height="500" Width="600"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BackgroundColor}">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Settings" 
+                   FontSize="20" FontWeight="SemiBold" 
+                   Margin="0,0,0,15"
+                   Foreground="{DynamicResource PrimaryTextColor}"/>
+        
+        <!-- Settings TabControl -->
+        <TabControl Grid.Row="1" Background="Transparent">
+            <!-- Display Tab -->
+            <TabItem Header="Display">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Theme" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <RadioButton x:Name="lightThemeRadio" Content="Light Theme" 
+                                             Margin="0,5,0,5"
+                                             Foreground="{DynamicResource PrimaryTextColor}"/>
+                                <RadioButton x:Name="darkThemeRadio" Content="Dark Theme" 
+                                             Margin="0,5,0,5"
+                                             Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Fonts" Margin="0,0,0,15">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Content Font -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Content Font:" 
+                                           Margin="0,5,10,5" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="contentFontCombo" 
+                                          Margin="0,5" VerticalAlignment="Center"/>
+                                
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Size:" 
+                                           Margin="10,5,5,5" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <ComboBox Grid.Row="0" Grid.Column="3" x:Name="contentFontSizeCombo" 
+                                          Width="50" Margin="0,5" VerticalAlignment="Center"/>
+                                
+                                <!-- Title Font -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Title Font:" 
+                                           Margin="0,5,10,5" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="titleFontCombo" 
+                                          Margin="0,5" VerticalAlignment="Center"/>
+                                
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Size:" 
+                                           Margin="10,5,5,5" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <ComboBox Grid.Row="1" Grid.Column="3" x:Name="titleFontSizeCombo" 
+                                          Width="50" Margin="0,5" VerticalAlignment="Center"/>
+                                
+                                <!-- Preview -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Preview:" 
+                                           Margin="0,15,10,5" VerticalAlignment="Top"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" 
+                                        BorderBrush="{DynamicResource HighlightColor}" 
+                                        BorderThickness="1" Margin="0,15,0,5" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock x:Name="previewTitleText" Text="This is a title preview" 
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource PrimaryTextColor}"/>
+                                        
+                                        <TextBlock x:Name="previewContentText" Text="This is a preview of the content text. It shows how the content will look with the selected font and size. The quick brown fox jumps over the lazy dog." 
+                                                   TextWrapping="Wrap" Margin="0,10,0,0"
+                                                   Foreground="{DynamicResource PrimaryTextColor}"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </GroupBox>
+                        
+                        <CheckBox x:Name="showImagesCheck" Content="Show images in articles" 
+                                  Margin="5,0,0,5"
+                                  Foreground="{DynamicResource PrimaryTextColor}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Behavior Tab -->
+            <TabItem Header="Behavior">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Feed Refresh" Margin="0,0,0,15">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Text="Check for new articles every" 
+                                           VerticalAlignment="Center" Margin="0,0,5,0"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <ComboBox Grid.Column="1" x:Name="refreshIntervalCombo" 
+                                          Width="70" VerticalAlignment="Center"/>
+                                
+                                <TextBlock Grid.Column="2" Text="minutes" 
+                                           VerticalAlignment="Center" Margin="5,0,0,0"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </Grid>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Article Storage" Margin="0,0,0,15">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Text="Keep up to" 
+                                           VerticalAlignment="Center" Margin="0,0,5,0"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <ComboBox Grid.Column="1" x:Name="maxArticlesCombo" 
+                                          Width="70" VerticalAlignment="Center"/>
+                                
+                                <TextBlock Grid.Column="2" Text="articles per feed" 
+                                           VerticalAlignment="Center" Margin="5,0,0,0"
+                                           Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </Grid>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Reading" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <CheckBox x:Name="markReadOnViewCheck" 
+                                          Content="Mark articles as read when viewed" 
+                                          Margin="0,5,0,5"
+                                          Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <CheckBox x:Name="notifyNewArticlesCheck" 
+                                          Content="Show notification when new articles are available" 
+                                          Margin="0,5,0,5"
+                                          Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Application" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <CheckBox x:Name="startWithWindowsCheck" 
+                                          Content="Start application when Windows starts" 
+                                          Margin="0,5,0,5"
+                                          Foreground="{DynamicResource PrimaryTextColor}"/>
+                                
+                                <CheckBox x:Name="minimizeToTrayCheck" 
+                                          Content="Minimize to system tray instead of taskbar" 
+                                          Margin="0,5,0,5"
+                                          Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" Margin="0,15,0,0">
+            
+            <Button Content="Cancel" Width="80" Height="30" Margin="0,0,10,0"
+                    Click="CancelButton_Click"/>
+            
+            <Button Content="Save" Width="80" Height="30" IsDefault="True"
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

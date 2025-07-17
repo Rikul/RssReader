@@ -1,0 +1,114 @@
+<!-- Views/MainWindow.xaml -->
+<Window x:Class="RssReader.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RssReader.Views"
+        mc:Ignorable="d"
+        Title="RSS Reader" Height="600" Width="1000"
+        MinHeight="500" MinWidth="800">
+    
+    <!-- Application Resources -->
+    <Window.Resources>
+        <!-- Default styles will be overridden by ThemeManager -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryTextColor" Color="#333333"/>
+        <SolidColorBrush x:Key="SecondaryTextColor" Color="#666666"/>
+        <SolidColorBrush x:Key="HighlightColor" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#2196F3"/>
+        <SolidColorBrush x:Key="ReadColor" Color="#9E9E9E"/>
+        <SolidColorBrush x:Key="UnreadColor" Color="#000000"/>
+        <SolidColorBrush x:Key="FavoriteColor" Color="#FFD700"/>
+    </Window.Resources>
+    
+    <!-- Main Grid -->
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Menu Bar -->
+        <Menu Grid.Row="0" Background="{DynamicResource PrimaryColor}">
+            <MenuItem Header="File">
+                <MenuItem Header="Add Feed..." Click="AddFeed_Click"/>
+                <MenuItem Header="Import OPML..." Click="ImportOPML_Click"/>
+                <MenuItem Header="Export OPML..." Click="ExportOPML_Click"/>
+                <Separator/>
+                <MenuItem Header="Settings..." Click="Settings_Click"/>
+                <Separator/>
+                <MenuItem Header="Exit" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Mark All as Read" Click="MarkAllRead_Click"/>
+                <MenuItem Header="Mark Selected as Read" Click="MarkSelectedRead_Click"/>
+                <Separator/>
+                <MenuItem Header="Refresh All Feeds" Click="RefreshAll_Click"/>
+                <MenuItem Header="Refresh Selected Feed" Click="RefreshSelected_Click"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="All Articles" Click="ViewAllArticles_Click"/>
+                <MenuItem Header="Unread Articles" Click="ViewUnreadArticles_Click"/>
+                <MenuItem Header="Favorites" Click="ViewFavorites_Click"/>
+                <Separator/>
+                <MenuItem Header="Light Theme" Click="LightTheme_Click"/>
+                <MenuItem Header="Dark Theme" Click="DarkTheme_Click"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="About_Click"/>
+            </MenuItem>
+        </Menu>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" MinWidth="200"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Left Pane - Source List -->
+            <local:SourcesPanel x:Name="sourcesPanel" Grid.Column="0"/>
+            
+            <!-- GridSplitter -->
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" 
+                          Background="{DynamicResource HighlightColor}"/>
+            
+            <!-- Right Pane -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MinHeight="100"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="2*" MinHeight="200"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Article List -->
+                <local:ArticleListPanel x:Name="articleListPanel" Grid.Row="0"/>
+                
+                <!-- GridSplitter -->
+                <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" 
+                              Background="{DynamicResource HighlightColor}"/>
+                
+                <!-- Article Content -->
+                <local:ArticlePanel x:Name="articlePanel" Grid.Row="2"/>
+            </Grid>
+        </Grid>
+        
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="2" Background="{DynamicResource SecondaryColor}">
+            <StatusBarItem>
+                <TextBlock x:Name="statusMessage" Text="Ready" Foreground="{DynamicResource PrimaryTextColor}"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Last Updated: " Foreground="{DynamicResource PrimaryTextColor}"/>
+                    <TextBlock x:Name="lastUpdatedText" Text="Never" Foreground="{DynamicResource PrimaryTextColor}"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
